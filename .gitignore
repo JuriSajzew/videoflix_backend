@@ -1,0 +1,5 @@
+#Ignoriere die komplette env-Datei
+env/
+
+# Ignoriere die .env-Datei im Videoflix-Ordner
+Videoflix/.env
