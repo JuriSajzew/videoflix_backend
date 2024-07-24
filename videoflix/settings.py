@@ -47,8 +47,13 @@ INSTALLED_APPS = [
     'videos.apps.VideosConfig',
     'debug_toolbar',
     'django_celery_beat',
+    'import_export',
     
 ]
+
+#Django Import/Export
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/staticfiles')
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 AUTH_USER_MODEL = 'user.CustomUser'
 
