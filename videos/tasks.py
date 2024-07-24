@@ -29,8 +29,8 @@ def convert_all_resolutions(source):
         convert_video(source, resolution)
         
 # Setze das Logging-Level für deine Anwendung
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+#logging.basicConfig(level=logging.INFO)
+#logger = logging.getLogger(__name__)
 
 resolutions = ['480', '720', '1080']
 
@@ -44,16 +44,36 @@ def convert_video(source, resolution):
     
     cmd = f'ffmpeg -i "{source}" -s hd{resolution} -c:v libx264 -crf 23 -c:a aac -strict -2 "{target}"'
     
-    # Logge den Befehl zur Überprüfung
-    logger.info(f"Running command: {cmd}")
-    
-    # Führe den ffmpeg-Befehl aus und logge die Ausgaben
     try:
-        result = subprocess.run(cmd, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        logger.info(result.stdout.decode())
-        logger.error(result.stderr.decode())
-    except subprocess.CalledProcessError as e:
-        logger.error(f"Error occurred: {e}")
+        # Führe den Befehl aus und erhalte die Ausgabe und Fehler
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        
+        # Logge die Standardausgabe und die Fehlerausgabe
+        print("STDOUT:", result.stdout)
+        print("STDERR:", result.stderr)
+        
+        # Überprüfe den Rückgabewert
+        if result.returncode != 0:
+            raise RuntimeError(f"ffmpeg failed with return code {result.returncode}")
+        
+        return target
+    
+    except Exception as e:
+        print(f"An error occurred: {e}")
         raise
     
-    return target
+    
+    #return target
+    # Logge den Befehl zur Überprüfung
+    #logger.info(f"Running command: {cmd}")
+    #
+    ## Führe den ffmpeg-Befehl aus und logge die Ausgaben
+    #try:
+    #    result = subprocess.run(cmd, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    #    logger.info(result.stdout.decode())
+    #    logger.error(result.stderr.decode())
+    #except subprocess.CalledProcessError as e:
+    #    logger.error(f"Error occurred: {e}")
+    #    raise
+    
+    
