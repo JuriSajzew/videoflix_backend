@@ -45,11 +45,15 @@ INSTALLED_APPS = [
     'user',
     'rest_framework',
     'videos.apps.VideosConfig',
+    'debug_toolbar',
+    'django_celery_beat',
+    
 ]
 
 AUTH_USER_MODEL = 'user.CustomUser'
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -81,18 +85,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'videoflix.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
-# Add these at the top of your settings.py
 
 # Replace the DATABASES section of your settings.py with this
 DATABASES = {
@@ -173,4 +165,36 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+}
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+CACHE_TTL = 60 * 15
+
+# Celery configuration
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Redis als Broker
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # Redis als Ergebnis-Backend
+CELERY_ACCEPT_CONTENT = ['json']  # Die akzeptierten Content-Typen
+CELERY_TASK_SERIALIZER = 'json'  # Die Serialisierungsart für Aufgaben
+CELERY_RESULT_SERIALIZER = 'json'  # Die Serialisierungsart für Ergebnisse
+CELERY_TIMEZONE = 'Europe/Berlin'  # Zeitzone
+
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+# Celery-Konfiguration
+CELERY_BROKER_URL = 'redis://:foobared@localhost:6379/0'  # Passwort einfügen
+CELERY_RESULT_BACKEND = 'redis://:foobared@localhost:6379/0'  # Passwort einfügen
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "PASSWORD": 'foobared',
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "videoflix"
+    }
 }

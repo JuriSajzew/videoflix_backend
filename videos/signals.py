@@ -10,8 +10,7 @@ def video_post_save(sender, instance, created, **kwargs):
     print('Video wurde gespeichert')
     if created:
         print('New video created')
-        convert_all_resolutions(instance.video_file.path)
-        #convert_720p(instance.video_file.path)
+        convert_all_resolutions.delay(instance.video_file.path)
 
 @receiver(post_delete, sender=Video)       
 def video_delete_save(sender, instance, **kwargs):
