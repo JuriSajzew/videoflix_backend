@@ -30,7 +30,10 @@ SECRET_KEY = 'django-insecure-w#%mddor)!s*hf24aid2ld%_&mgs+lvj2#c@4&t*k4__@)iz$z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -46,9 +49,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'videos.apps.VideosConfig',
     'debug_toolbar',
-    'django_celery_beat',
     'import_export',
-    
+    'rest_framework.authtoken',
+    'corsheaders',
+    "django_rq",   
 ]
 
 #Django Import/Export
@@ -59,6 +63,7 @@ AUTH_USER_MODEL = 'user.CustomUser'
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,6 +72,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Stellen Sie sicher, dass diese Einstellungen vorhanden sind
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,  # Verhindert, dass Weiterleitungen abgefangen werden
+}
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -178,23 +188,9 @@ INTERNAL_IPS = [
 
 CACHE_TTL = 60 * 15
 
-# Celery configuration
-CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Redis als Broker
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # Redis als Ergebnis-Backend
-CELERY_ACCEPT_CONTENT = ['json']  # Die akzeptierten Content-Typen
-CELERY_TASK_SERIALIZER = 'json'  # Die Serialisierungsart für Aufgaben
-CELERY_RESULT_SERIALIZER = 'json'  # Die Serialisierungsart für Ergebnisse
-CELERY_TIMEZONE = 'Europe/Berlin'  # Zeitzone
-
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
-
-# Celery-Konfiguration
-CELERY_BROKER_URL = 'redis://:foobared@localhost:6379/0'  # Passwort einfügen
-CELERY_RESULT_BACKEND = 'redis://:foobared@localhost:6379/0'  # Passwort einfügen
-
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379/1",
         "OPTIONS": {
             "PASSWORD": 'foobared',
@@ -202,4 +198,30 @@ CACHES = {
         },
         "KEY_PREFIX": "videoflix"
     }
+}
+
+#Rest_Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
+]
+
+#django-rq
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'PASSWORD': 'foobared',
+        'DEFAULT_TIMEOUT': 360,
+        #'REDIS_CLIENT_KWARGS': {    # Eventual additional Redis connection arguments
+        #    'ssl_cert_reqs': None,
+        #},
+    },
 }
