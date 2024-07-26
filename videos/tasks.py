@@ -17,17 +17,11 @@ def convert_video(source, resolution):
     Konvertiert ein Video in die angegebene Auflösung.
     """
     base_name, ext = os.path.splitext(source)
-    target = f"{base_name}_{resolution}p.mp4"
+    target = f"{base_name}_{resolution}p.m3u8"
+    #cmd = ['ffmpeg', '-i', source, '-s', f'hd{resolution}','-c:v', 'libx264','-crf', '23','-c:a', 'aac','-strict', '-2', target]
+    cmd = ['ffmpeg', '-i', source, f'hd{resolution}', '-codec:', 'copy', '-start_number', 0, '-hls_time', 10, '-hls_list_size', 0, '-f', 'hls', target]
     
-    cmd = ['ffmpeg',
-           '-i', source,
-           '-s', f'hd{resolution}',
-           '-c:v', 'libx264',
-           '-crf', '23',
-           '-c:a', 'aac',
-           '-strict', '-2', 
-           target
-        ]
+    print(cmd)
     try:
         # Execute the command and get the output and error
         result = subprocess.run(cmd, capture_output=True, text=True)
@@ -38,5 +32,4 @@ def convert_video(source, resolution):
     except Exception as e:
         print(f"An error occurred: {e}")
         raise
-    
-    
+  

@@ -1,10 +1,7 @@
-from django.shortcuts import render
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
-#from django.views.decorators.cache import cache_page
-#from django.core.cache.backends.base import DEFAULT_TIMEOUT
-#from django.conf import settings
+from rest_framework.response import Response
 
 # Create your views here.
 #CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
