@@ -20,9 +20,11 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from debug_toolbar.toolbar import debug_toolbar_urls
 from user.views import LoginView
+from videos.views import ShowVideo 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
-    path('django-rq/', include('django_rq.urls'))
+    path('videos/<str:video_name>/<str:resolution>/', ShowVideo.as_view(), name='show_video'),
+    path('django-rq/', include('django_rq.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + debug_toolbar_urls()
