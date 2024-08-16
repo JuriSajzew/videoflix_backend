@@ -19,12 +19,19 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
 from debug_toolbar.toolbar import debug_toolbar_urls
-from user.views import LoginView
-from videos.views import ShowVideo 
+from user.views import LoginView, PasswordResetConfirmView, change_password, register, verify_email
+from videos.views import ShowVideo, VideoListView 
 
 urlpatterns = [
+    path('api', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
+    path('api/videos/', VideoListView.as_view(), name='video-list'),
     path('videos/<str:video_name>/<str:resolution>/', ShowVideo.as_view(), name='show_video'),
     path('django-rq/', include('django_rq.urls')),
+    path('change_password/', change_password, name='change_password'),
+    path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('password_reset/confirm/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('register/', register, name='register'),
+    path('verify-email/', verify_email, name='verify-email'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + debug_toolbar_urls()
