@@ -35,9 +35,9 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 
+AUTH_USER_MODEL = 'user.CustomUser'
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,21 +45,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user',
     'rest_framework',
     'videos.apps.VideosConfig',
     'debug_toolbar',
     'import_export',
     'rest_framework.authtoken',
     'corsheaders',
-    "django_rq",   
+    'django_rq', 
+    'django_rest_passwordreset',
+    'user.apps.UserConfig',
 ]
 
 #Django Import/Export
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/staticfiles')
 IMPORT_EXPORT_USE_TRANSACTIONS = True
-
-AUTH_USER_MODEL = 'user.CustomUser'
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
@@ -83,10 +82,14 @@ MEDIA_URL = '/media/'
 
 ROOT_URLCONF = 'videoflix.urls'
 
+#DJANGO_REST_LOOKUP_FIELD = 'custom_email_field'
+DJANGO_REST_PASSWORDRESET_IP_ADDRESS_HEADER = 'HTTP_X_FORWARDED_FOR'
+HTTP_USER_AGENT_HEADER = 'HTTP_USER_AGENT'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -172,6 +175,8 @@ REST_FRAMEWORK = {
     
     # Standard-Authentifizierung
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'user.authentication.EmailVerifiedAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
@@ -219,10 +224,31 @@ RQ_QUEUES = {
 }
 
 # Email configuration
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST = getenv('EMAIL_HOST')
+#EMAIL_PORT = getenv('EMAIL_PORT')
+#EMAIL_USE_TLS = getenv('EMAIL_USE_TLS') == True
+##EMAIL_USE_SSL = False
+#EMAIL_HOST_USER = getenv('EMAIL_HOST_USER')
+#EMAIL_HOST_PASSWORD = getenv('EMAIL_HOST_PASSWORD')
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = os.getenv('EMAIL_PORT')
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS') == True
+EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+#from django.core.mail import send_mail
+#send_mail(
+#   'Reset Password',
+#   'Eine informative Mitteilung',
+#   'info@videoflix.juridev.de',
+#   ['j.sajzew@outlook.de'],
+#   fail_silently=False,
+#)

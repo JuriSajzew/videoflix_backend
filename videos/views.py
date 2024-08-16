@@ -10,6 +10,9 @@ from django.conf import settings
 from rest_framework import status
 from videos.models import Video
 import mimetypes
+from rest_framework import generics
+from .models import Video
+from .serializers import VideoSerializer
 
 # Create your views here.
 #class ShowVideo(APIView):
@@ -37,6 +40,13 @@ import mimetypes
 #            return JsonResponse({'success': False, 'error': 'Video not found'})    
 #        except Exception as e:
 #            return JsonResponse({'success': False, 'error': str(e)})
+
+class VideoListView(generics.ListCreateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    queryset = Video.objects.all()
+    serializer_class = VideoSerializer
 
 class ShowVideo(APIView):
     """
