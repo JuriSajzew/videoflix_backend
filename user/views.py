@@ -1,25 +1,24 @@
 from datetime import timedelta
 from arrow import now
-from django.http import HttpResponse, HttpResponseNotAllowed
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views import View
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import update_session_auth_hash
-from .serializers import ChangePasswordSerializer, CustomAuthTokenSerializer, UserSerializer
-from django.contrib.auth.forms import SetPasswordForm
-from .models import PasswordReset, UserVerification
+from .serializers import ChangePasswordSerializer, CustomAuthTokenSerializer, UserEmailSerializer, UserSerializer
+from .models import CustomUser, PasswordReset, UserVerification
 from rest_framework.permissions import AllowAny
 import uuid
 from django.contrib.auth import get_user_model
+from rest_framework import generics
 
 # Create your views here.
 #CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -45,6 +44,11 @@ class LoginView(ObtainAuthToken):
             'email': user.email
         })
         
+class CustomUserEmailListView(generics.ListAPIView):
+    serializer_class = UserEmailSerializer
+    permission_classes = [AllowAny]
+    queryset = CustomUser.objects.all()
+        
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def change_password(request):
@@ -58,20 +62,18 @@ def change_password(request):
                 update_session_auth_hash(request, user)  # To update session after password change
                 return Response({'message': 'Password changed successfully.'}, status=status.HTTP_200_OK)
             return Response({'error': 'Incorrect old password.'}, status=status.HTTP_400_BAD_REQUEST)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-class PasswordResetConfirmView(View):
-    def get(self, request):
-        token = request.POST.get('token')
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)       
+
+class CustomPasswordResetConfirmView(View):
+    def post(self, request, token=None):
         if not token:
             return HttpResponse('Token is missing', status=400)
-
-        user = self.get_user_from_token(token)
-        
+        user =set.get_user_from_token(token)
         if user:
-            return render(request, 'password_reset_confirm.html', {'user': user})
+            return render(request, '/email/password_reset_confirm.html', {'user': user, 'token': token})
         else:
             return HttpResponse('Invalid or expired token', status=400)
+        
         
     def get_user_from_token(self, token):
         try:
@@ -86,6 +88,7 @@ class PasswordResetConfirmView(View):
 @permission_classes([AllowAny])
 def register(request):
     serializer = UserSerializer(data=request.data)
+    print(serializer)
     if serializer.is_valid():
         user = serializer.save()
         
@@ -104,6 +107,7 @@ def register(request):
 @permission_classes([AllowAny])
 def verify_email(request):
     token = request.GET.get('token')
+    print(token)
     
     if not token:
         return Response({'message': 'Token is required.'}, status=status.HTTP_400_BAD_REQUEST)
@@ -120,3 +124,12 @@ def verify_email(request):
         return Response({'message': 'Email verified successfully.'}, status=status.HTTP_200_OK)
     except UserVerification.DoesNotExist:
         return Response({'message': 'Invalid token.'}, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def check_email(request):
+    email = request.data.get('email')
+    if CustomUser.objects.filter(email=email).exists():
+        return Response({'message': 'Email is registered'}, status=status.HTTP_200_OK)
+    else:
+        return Response({'error': 'Email not found'}, status=status.HTTP_404_NOT_FOUND)
