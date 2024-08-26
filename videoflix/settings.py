@@ -215,6 +215,7 @@ CACHES = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
+    "https://videoflix.juridev.de",
 ]
 
 #django-rq
