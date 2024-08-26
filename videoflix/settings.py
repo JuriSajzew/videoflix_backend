@@ -33,7 +33,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'https://videoflix.juridev.de'
+    'https://videoflix.juridev.de',
+    'juri-sajzew.developerakademie.org'
 ]
 
 AUTH_USER_MODEL = 'user.CustomUser'
