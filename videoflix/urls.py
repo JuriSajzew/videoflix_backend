@@ -39,4 +39,6 @@ urlpatterns = [
     path('password_reset/confirm/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('register/', register, name='register'),
     path('verify-email/', verify_email, name='verify-email'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + debug_toolbar_urls() + staticfiles_urlpatterns()
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + debug_toolbar_urls()
+
+urlpatterns += staticfiles_urlpatterns()
