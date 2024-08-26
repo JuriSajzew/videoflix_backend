@@ -21,6 +21,10 @@ from django.conf.urls.static import static
 from debug_toolbar.toolbar import debug_toolbar_urls
 from user.views import CustomPasswordResetConfirmView, CustomUserEmailListView, LoginView, change_password, check_email, register, verify_email
 from videos.views import ShowVideo, VideoListView
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,4 +39,4 @@ urlpatterns = [
     path('password_reset/confirm/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('register/', register, name='register'),
     path('verify-email/', verify_email, name='verify-email'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + debug_toolbar_urls()
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + debug_toolbar_urls() + staticfiles_urlpatterns()
