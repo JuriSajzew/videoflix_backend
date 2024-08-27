@@ -18,7 +18,8 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     :return:
     """
     # send an e-mail to the user
-    reset_password_url = "http://localhost:4200/forgot-password-reset?token={}".format(reset_password_token.key)
+    reset_password_url = "http://videoflix.juridev.de/forgot-password-reset?token={}".format(reset_password_token.key)
+    #reset_password_url = "http://localhost:4200/forgot-password-reset?token={}".format(reset_password_token.key)
     
     context = {
         'current_user': reset_password_token.user,
