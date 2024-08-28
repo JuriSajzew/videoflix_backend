@@ -63,8 +63,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/staticfiles')
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
