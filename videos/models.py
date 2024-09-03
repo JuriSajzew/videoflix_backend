@@ -15,6 +15,7 @@ class Video(models.Model):
     created_at = models.DateField(default=date.today)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, blank=True, null=True)
     video_file = models.FileField(upload_to='videos', blank=True, null=True)
+    cover_image = models.ImageField(upload_to='covers', blank=True, null=True)  # Feld für das manuell gestaltete Foto
     video_urls = models.JSONField(blank=True, null=True)
     
     def __str__(self):
