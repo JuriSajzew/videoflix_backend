@@ -1,1 +1,9 @@
 */env
+__pycache__
+.vscode
+.gitignore
+docker-compose.yml
+Dockerfile
+dockerstart.bat
+migration.bat
+start.bat

@@ -1,18 +1,11 @@
-# syntax=docker/dockerfile:1 <-- Bei manchen Systemen muss diese Zeile weg
-
-FROM python:3
+FROM python:3.10.12
 
 WORKDIR /usr/src/app
-
-
-COPY requirements.txt ./
+COPY . .
 
 RUN /usr/local/bin/python -m pip install --upgrade pip
-
 RUN pip install --no-cache-dir -r requirements.txt
 
+EXPOSE 8000
 
-
-COPY . . 
-RUN cd ./videoflix
 CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
