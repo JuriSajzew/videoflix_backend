@@ -219,10 +219,13 @@ CORS_ALLOWED_ORIGINS = [
     "https://videoflix.juridev.de",
 ]
 
+REDIS_URL = 'redis://127.0.0.1:6379/1'
+
 #django-rq
 RQ_QUEUES = {
     'default': {
-        'HOST': 'localhost',
+        #'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': 6379,
         'DB': 0,
         'PASSWORD': 'foobared',
