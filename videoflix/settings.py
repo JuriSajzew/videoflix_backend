@@ -255,6 +255,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 CSRF_TRUSTED_ORIGINS = ['https://juri-sajzew.developerakademie.org']
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB in Bytes
+FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB in Bytes
 #from django.core.mail import send_mail
 #send_mail(
 #   'Reset Password',
