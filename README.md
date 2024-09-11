@@ -29,10 +29,10 @@ Die API-Dokumentation ist standardmäßig durch das Django Rest Framework (DRF) 
 
 Beispielhafte API-Endpunkte:
 
-GET /api/videos/ - Liste aller Videos
-POST /api/videos/ - Ein neues Video hochladen
-PUT /api/videos/{id}/ - Ein Video bearbeiten
-DELETE /api/videos/{id}/ - Ein Video löschen
+* `GET /api/videos/` - Liste aller Videos
+* `POST /api/videos/` - Ein neues Video hochladen
+* `PUT /api/videos/{id}/` - Ein Video bearbeiten
+* `DELETE /api/videos/{id}/` - Ein Video löschen
 
 ##Frontend
 Das zugehörige Frontend-Projekt ist separat und wurde mit Angular entwickelt. Du findest es hier auf meinem github.comJuriSajzew/videoflix_frontend.
