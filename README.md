@@ -1,9 +1,9 @@
 # Videoflix Backend
 
-##Beschreibung
+## Beschreibung
 Videoflix ist das Backend einer Video-Plattform, die als Lernprojekt entwickelt wurde, um tiefere Einblicke in Django und insbesondere in das Django Rest Framework zu erhalten. Dieses Repository enthält die Datenbank und die REST-API, die alle Anfragen des Frontends verarbeitet. Das Frontend wurde mit Angular erstellt und ist separat vom Backend verfügbar. Du findest es öffentlich auf meinem GitHub-Profil.
 
-##Funktionen
+## Funktionen
 Upload von Videos
 Verwaltung von Benutzern und Authentifizierung
 API für die Video-Plattform (GET, POST, PUT, DELETE Endpunkte)
@@ -34,12 +34,12 @@ Beispielhafte API-Endpunkte:
 * `PUT /api/videos/{id}/` - Ein Video bearbeiten
 * `DELETE /api/videos/{id}/` - Ein Video löschen
 
-##Frontend
+## Frontend
 Das zugehörige Frontend-Projekt ist separat und wurde mit Angular entwickelt. Du findest es hier auf meinem github.comJuriSajzew/videoflix_frontend.
 
-##Autor
+## Autor
 Juri Sajzew
 GitHub: github.com/JuriSajzew
 
-##Lizenz
+## Lizenz
 Dieses Projekt ist lizenziert unter der MIT-Lizenz - siehe die LICENSE-Datei für weitere Details.
