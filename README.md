@@ -18,11 +18,11 @@ psycopg2: PostgreSQL-Adapter für Python
 ###Voraussetzungen
 Stelle sicher, dass du die folgenden Anwendungen installiert hast:
 
-Python (Version 3.x)
-Django
-PostgreSQL
-python-dotenv (für Umgebungsvariablen)
-psycopg2 (für die PostgreSQL-Datenbank)
+* Python (Version 3.x)
+* Django
+* PostgreSQL
+* python-dotenv (für Umgebungsvariablen)
+* psycopg2 (für die PostgreSQL-Datenbank)
 
 ##API-Dokumentation
 Die API-Dokumentation ist standardmäßig durch das Django Rest Framework (DRF) bereitgestellt. Sobald der Server läuft, kannst du sie auf http://localhost:8000/api/ einsehen.
