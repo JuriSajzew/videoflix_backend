@@ -2,7 +2,7 @@
 
 ## Beschreibung
 
-Videoflix ist das Backend einer Video-Plattform, die als Lernprojekt entwickelt wurde, um tiefere Einblicke in Django und insbesondere in das Django Rest Framework zu erhalten. Dieses Repository enthält die Datenbank und die REST-API, die alle Anfragen des Frontends verarbeitet. Das Frontend wurde mit Angular erstellt und ist separat vom Backend verfügbar. Du findest es öffentlich auf meinem GitHub-Profil.
+**Videoflix** ist das Backend einer Video-Plattform, die als Lernprojekt entwickelt wurde, um tiefere Einblicke in Django und insbesondere in das Django Rest Framework zu erhalten. Dieses Repository enthält die Datenbank und die REST-API, die alle Anfragen des Frontends verarbeitet. Das Frontend wurde mit Angular erstellt und ist separat vom Backend verfügbar. Du findest es öffentlich auf meinem GitHub-Profil.
 
 ## Funktionen
 
