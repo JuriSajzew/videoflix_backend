@@ -13,11 +13,11 @@ PostgreSQL-Datenbankintegration
 
 ## Technologie-Stack
 
-* ### Python: Programmiersprache
-* ### Django: Web-Framework
-* ### Django Rest Framework (DRF): Zum Erstellen von RESTful APIs
-* ### PostgreSQL: Datenbank
-* ### psycopg2: PostgreSQL-Adapter für Python
+* **Python**: Programmiersprache
+* **Django**: Web-Framework
+* **Django Rest Framework (DRF)**: Zum Erstellen von RESTful APIs
+* **PostgreSQL**: Datenbank
+* **psycopg2**: PostgreSQL-Adapter für Python
 
 ## Installation
 
