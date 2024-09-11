@@ -2,7 +2,7 @@
 env/
 
 # Ignoriere die .env-Datei im Videoflix-Ordner
-Videoflix/.env
+videoflix/.env
 
 #Ignoriere die media-Datei
 media
