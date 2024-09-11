@@ -6,3 +6,6 @@ Videoflix/.env
 
 #Ignoriere die media-Datei
 media
+
+*.pyc
+__pycache__/
