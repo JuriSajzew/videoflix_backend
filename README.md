@@ -11,13 +11,13 @@ Verwaltung von Benutzern und Authentifizierung
 API für die Video-Plattform (GET, POST, PUT, DELETE Endpunkte)
 PostgreSQL-Datenbankintegration
 
-## echnologie-Stack
+## Technologie-Stack
 
-Python: Programmiersprache
-Django: Web-Framework
-Django Rest Framework (DRF): Zum Erstellen von RESTful APIs
-PostgreSQL: Datenbank
-psycopg2: PostgreSQL-Adapter für Python
+* ### Python: Programmiersprache
+* ### Django: Web-Framework
+* ### Django Rest Framework (DRF): Zum Erstellen von RESTful APIs
+* ### PostgreSQL: Datenbank
+* ### psycopg2: PostgreSQL-Adapter für Python
 
 ## Installation
 
@@ -25,11 +25,11 @@ psycopg2: PostgreSQL-Adapter für Python
 
 Stelle sicher, dass du die folgenden Anwendungen installiert hast:
 
-Python (Version 3.x)
-Django
-PostgreSQL
-python-dotenv (für Umgebungsvariablen)
-psycopg2 (für die PostgreSQL-Datenbank)
+* Python (Version 3.x)
+* Django
+* PostgreSQL
+* python-dotenv (für Umgebungsvariablen)
+* psycopg2 (für die PostgreSQL-Datenbank)
 
 ## API-Dokumentation
 
