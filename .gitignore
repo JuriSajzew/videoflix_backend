@@ -9,3 +9,13 @@ media
 
 *.pyc
 __pycache__/
+
+#Ignore Docker file
+.dockerignore
+docker-compose.yml
+Dockerfile
+dockerstart.bat
+
+#Ignore various files
+start.bat
+migration.bat
