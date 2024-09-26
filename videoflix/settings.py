@@ -74,9 +74,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Stellen Sie sicher, dass diese Einstellungen vorhanden sind
 DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,  # Verhindert, dass Weiterleitungen abgefangen werden
+    'INTERCEPT_REDIRECTS': False, 
 }
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -205,9 +204,8 @@ CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379/1",
-        #"LOCATION": "redis://redis:6379/1",
         "OPTIONS": {
-            "PASSWORD": 'foobared',
+            "PASSWORD": os.getenv('REDIS_PASSWORD_LOCAL'),
             "CLIENT_CLASS": "django_redis.client.DefaultClient"
         },
         "KEY_PREFIX": "videoflix"
@@ -224,28 +222,13 @@ REDIS_URL = 'redis://127.0.0.1:6379/1'
 #django-rq
 RQ_QUEUES = {
     'default': {
-        #'HOST': 'localhost',
         'HOST': '127.0.0.1',
         'PORT': 6379,
         'DB': 0,
-        'PASSWORD': 'foobared',
+        'PASSWORD': os.getenv('REDIS_PASSWORD_LOCAL'),
         'DEFAULT_TIMEOUT': 360,
-        #'REDIS_CLIENT_KWARGS': {    # Eventual additional Redis connection arguments
-        #    'ssl_cert_reqs': None,
-        #},
     },
 }
-
-# Email configuration
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_HOST = getenv('EMAIL_HOST')
-#EMAIL_PORT = getenv('EMAIL_PORT')
-#EMAIL_USE_TLS = getenv('EMAIL_USE_TLS') == True
-##EMAIL_USE_SSL = False
-#EMAIL_HOST_USER = getenv('EMAIL_HOST_USER')
-#EMAIL_HOST_PASSWORD = getenv('EMAIL_HOST_PASSWORD')
-
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.getenv('EMAIL_HOST')
@@ -260,11 +243,3 @@ CSRF_TRUSTED_ORIGINS = ['https://juri-sajzew.developerakademie.org']
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB in Bytes
 FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB in Bytes
-#from django.core.mail import send_mail
-#send_mail(
-#   'Reset Password',
-#   'Eine informative Mitteilung',
-#   'info@videoflix.juridev.de',
-#   ['j.sajzew@outlook.de'],
-#   fail_silently=False,
-#)

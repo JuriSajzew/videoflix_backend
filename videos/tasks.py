@@ -4,6 +4,7 @@ import subprocess
 from videos.models import Video
  
 resolutions = ['480', '720', '1080']
+BASE_URL_VIDEO = "https://juri-sajzew.developerakademie.org/media/videos"
  
 def convert_all_resolutions(source, video_id):
     """
@@ -24,7 +25,7 @@ def convert_all_resolutions(source, video_id):
         for resolution in resolutions:
             target = convert_video(source, resolution)
             resolution_key = f'{resolution}p'
-            video_urls[resolution_key] = target
+            video_urls[resolution_key] = f"{BASE_URL_VIDEO}/{os.path.basename(target)}"
         
         video.video_urls = video_urls
         video.save()
