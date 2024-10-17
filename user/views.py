@@ -94,8 +94,6 @@ def register(request):
         if CustomUser.objects.filter(email=email).exists():
             return Response({'error': 'A user with this email already exists.'}, status=status.HTTP_400_BAD_REQUEST)
         
-        print("Validated data:", serializer.validated_data)
-        
         user = serializer.save()
         
         # Erstelle ein Verifizierungstoken
@@ -108,14 +106,12 @@ def register(request):
         
         return Response({'message': 'User registered. Please check your email for verification.'}, status=status.HTTP_201_CREATED)
     
-    print("Serializer errors:", serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def verify_email(request):
     token = request.GET.get('token')
-    print(token)
     
     if not token:
         return Response({'message': 'Token is required.'}, status=status.HTTP_400_BAD_REQUEST)

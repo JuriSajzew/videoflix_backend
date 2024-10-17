@@ -11,13 +11,11 @@ def convert_all_resolutions(source, video_id):
     Converts a video to all defined resolutions.
     """
     sleep(1)
-    print(f"Converting video with ID: {video_id}")
     
     video = Video.objects.filter(pk=video_id).first()
     
     # Check if the video object exists
     if video is None:
-        print(f"Video mit ID {video_id} wurde nicht gefunden.")
         return
      
     try:
@@ -29,7 +27,6 @@ def convert_all_resolutions(source, video_id):
         
         video.video_urls = video_urls
         video.save()
-        print(f"Video URLs updated: {video.video_urls}")
         
     except Exception as e:
         print(f"Ein Fehler ist aufgetreten: {e}")
@@ -53,14 +50,16 @@ def convert_video(source, resolution):
            '-f', 'hls', 
            target
         ]
-    
-    #print(cmd)
-    print(f"Executing command: {' '.join(cmd)}")
+
     try:
-        # Execute the command and get the output and error
+        """
+        Execute the command and get the output and error
+        """
         result = subprocess.run(cmd, capture_output=True, text=True)
         
-        # Check the return value
+        """
+        Check the return value
+        """
         if result.returncode != 0:
             raise RuntimeError(f"ffmpeg failed with return code {result.returncode}")  
         return target

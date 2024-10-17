@@ -8,9 +8,7 @@ import django_rq
 
 @receiver(post_save, sender=Video)
 def video_post_save(sender, instance, created, **kwargs):
-    print('Video wurde gespeichert')
     if created:
-        print('New video created')
         queue = django_rq.get_queue('default', autocommit=True)
         queue.enqueue(convert_all_resolutions, instance.video_file.path, instance.pk)
 

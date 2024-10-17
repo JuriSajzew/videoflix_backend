@@ -46,5 +46,4 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
         [reset_password_token.user.email]
     )
     msg.attach_alternative(email_html_message, "text/html")
-    print(email_html_message)
     msg.send()
