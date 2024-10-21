@@ -67,12 +67,12 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'videoflix.middleware.ForwardedForMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'videoflix.middleware.ForwardedForMiddleware',
 ]
 
 DEBUG_TOOLBAR_CONFIG = {
