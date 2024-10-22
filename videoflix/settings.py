@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from os import getenv
 from dotenv import load_dotenv
+from videoflix.middleware import ForwardedForMiddleware
 
 load_dotenv()
 
