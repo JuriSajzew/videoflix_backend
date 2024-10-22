@@ -69,7 +69,11 @@ class CustomPasswordResetConfirmView(View):
         if not token:
             return HttpResponse('Token is missing', status=400)
         user =set.get_user_from_token(token)
+        
+        ip_address = request.META.get('REMOTE_ADDR')
+        
         if user:
+            PasswordReset.objects.create(token=token, email=user.email, ip_address=ip_address)
             return render(request, '/email/password_reset_confirm.html', {'user': user, 'token': token})
         else:
             return HttpResponse('Invalid or expired token', status=400)
