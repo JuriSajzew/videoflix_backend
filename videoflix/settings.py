@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 from os import getenv
 from dotenv import load_dotenv
-from videoflix.middleware import ForwardedForMiddleware
+from user.middleware import ForwardedForMiddleware
 
 load_dotenv()
 
@@ -68,7 +68,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'videoflix.middleware.ForwardedForMiddleware',
+    'user.middleware.ForwardedForMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

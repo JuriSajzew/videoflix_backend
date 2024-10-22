@@ -4,7 +4,8 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 from django.contrib.auth import get_user_model
 from rest_framework import status
-
+from django.test import RequestFactory, TestCase
+from user.middleware import ForwardedForMiddleware
 from user.models import UserVerification
 from user.serializers import CustomAuthTokenSerializer
 
@@ -126,3 +127,39 @@ class CustomAuthTokenSerializerTest(TestCase):
         serializer = CustomAuthTokenSerializer(data={})
         with self.assertRaises(ValidationError):
             serializer.is_valid(raise_exception=True)
+            
+class ForwardedForMiddlewareTest(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.middleware = ForwardedForMiddleware(lambda request: None)
+
+    def test_ip_extraction(self):
+        request = self.factory.get('/', HTTP_X_FORWARDED_FOR='123.123.123.123')
+        self.middleware(request)
+        self.assertEqual(request.META['REMOTE_ADDR'], '123.123.123.123')
+
+    def test_no_x_forwarded_for(self):
+        request = self.factory.get('/')
+        self.middleware(request)
+        self.assertNotIn('REMOTE_ADDR', request.META)
+        
+class ForwardedForMiddlewareTest(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.middleware = ForwardedForMiddleware(lambda request: None)
+
+    def test_ip_extraction(self):
+        request = self.factory.get('/', HTTP_X_FORWARDED_FOR='123.123.123.123')
+        self.middleware(request)
+        self.assertEqual(request.META['REMOTE_ADDR'], '123.123.123.123')
+
+    def test_no_x_forwarded_for(self):
+        request = self.factory.get('/')
+        self.middleware(request)
+        # Stattdessen können wir einfach prüfen, dass die REMOTE_ADDR gleich 127.0.0.1 ist
+        self.assertEqual(request.META['REMOTE_ADDR'], '127.0.0.1')  # Standardverhalten
+        
+    def test_multiple_ips(self):
+        request = self.factory.get('/', HTTP_X_FORWARDED_FOR='123.123.123.123, 234.234.234.234')
+        self.middleware(request)
+        self.assertEqual(request.META['REMOTE_ADDR'], '123.123.123.123')
