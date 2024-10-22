@@ -31,6 +31,26 @@ SECRET_KEY = 'django-insecure-w#%mddor)!s*hf24aid2ld%_&mgs+lvj2#c@4&t*k4__@)iz$z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'user': {  # Ersetze 'your_app_name' durch den Namen deiner App
+            'handlers': ['console'],
+            'level': 'DEBUG',  # Du kannst hier auch 'INFO' setzen, wenn du nur Infos sehen möchtest
+        },
+    },
+}
+
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',

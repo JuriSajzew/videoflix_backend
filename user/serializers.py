@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from user.models import CustomUser
+from user.models import CustomUser, PasswordReset
 from django.contrib.auth import authenticate
 
 class ChangePasswordSerializer(serializers.Serializer):
@@ -8,6 +8,14 @@ class ChangePasswordSerializer(serializers.Serializer):
 
 class ResetPasswordRequestSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
+    
+    def save(self, **kwargs):
+        email = self.validated_data['email']
+        ip_address = self.context['request'].META.get('REMOTE_ADDR')  # IP-Adresse extrahieren
+        
+        # Stelle sicher, dass nur eine gültige IP-Adresse gespeichert wird
+        if ip_address:
+            PasswordReset.objects.create(email=email, ip_address=ip_address)  # IP-Adresse speichern
     
 class UserEmailSerializer(serializers.ModelSerializer):
     class Meta:
