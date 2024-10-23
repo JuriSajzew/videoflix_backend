@@ -55,7 +55,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'videoflix.juridev.de',
-    'juri-sajzew.developerakademie.org'
+    'juri-sajzew.developerakademie.org',
 ]
 
 AUTH_USER_MODEL = 'user.CustomUser'
