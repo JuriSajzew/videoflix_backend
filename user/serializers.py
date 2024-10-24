@@ -11,11 +11,10 @@ class ResetPasswordRequestSerializer(serializers.Serializer):
     
     def save(self, **kwargs):
         email = self.validated_data['email']
-        ip_address = self.context['request'].META.get('REMOTE_ADDR')  # IP-Adresse extrahieren
+        ip_address = self.context['request'].META.get('REMOTE_ADDR')
         
-        # Stelle sicher, dass nur eine gültige IP-Adresse gespeichert wird
         if ip_address:
-            PasswordReset.objects.create(email=email, ip_address=ip_address)  # IP-Adresse speichern
+            PasswordReset.objects.create(email=email, ip_address=ip_address)
     
 class UserEmailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,7 +30,6 @@ class UserSerializer(serializers.ModelSerializer):
         }
         
     def __init__(self, *args, **kwargs):
-        # Setze das Modell dynamisch, um zyklische Importe zu vermeiden
         if not getattr(self, 'Meta', None) or self.Meta.model is None:
             from user.models import CustomUser
             self.Meta.model = CustomUser
