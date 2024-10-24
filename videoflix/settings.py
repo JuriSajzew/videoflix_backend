@@ -67,7 +67,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'user.middleware.ForwardedForMiddleware',
+    'user.middleware.RealIPMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
