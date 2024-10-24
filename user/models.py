@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 # Create your models here.
 class CustomUser(AbstractUser):
@@ -23,10 +25,15 @@ class UserVerification(models.Model):
     
     def send_verification_email(self, request):
         verification_link = request.build_absolute_uri(f'/verify-email/?token={self.token}')
-        send_mail(
-            'Verify your email address',
-            f'Click the link to verify your email: {verification_link}',
-            settings.DEFAULT_FROM_EMAIL,
-            [self.user.email],
-            fail_silently=False,
+       # Render HTML email content
+        html_content = render_to_string('verification_email.html', {'verification_link': verification_link})
+        text_content = strip_tags(html_content)  # für Textversion
+
+        email = EmailMultiAlternatives(
+            subject='Verifizieren Sie Ihre E-Mail-Adresse',
+            body=text_content,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[self.user.email],
         )
+        email.attach_alternative(html_content, "text/html")  # fügt HTML-Inhalt hinzu
+        email.send(fail_silently=False)

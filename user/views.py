@@ -20,11 +20,6 @@ import uuid
 from django.contrib.auth import get_user_model
 from rest_framework import generics
 
-# Create your views here.
-#CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
-
-#@cache_page(CACHE_TTL)
-
 class LoginView(ObtainAuthToken):
     serializer_class = CustomAuthTokenSerializer
     
@@ -129,7 +124,10 @@ def verify_email(request):
         # Token ungültig machen
         verification.delete()
         
-        return Response({'message': 'Email verified successfully.'}, status=status.HTTP_200_OK)
+        return Response({
+            'message': 'Email verified successfully.',
+            'redirect_url': 'https://videoflix.juridev.de/login'  # URL deiner Login-Seite
+        }, status=status.HTTP_200_OK)
     except UserVerification.DoesNotExist:
         return Response({'message': 'Invalid token.'}, status=status.HTTP_400_BAD_REQUEST)
     
