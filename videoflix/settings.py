@@ -14,7 +14,6 @@ import os
 from pathlib import Path
 from os import getenv
 from dotenv import load_dotenv
-from user.middleware import ForwardedForMiddleware
 
 load_dotenv()
 
@@ -75,6 +74,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False, 

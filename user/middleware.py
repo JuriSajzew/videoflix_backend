@@ -1,21 +1,11 @@
-import logging
+from django.utils.deprecation import MiddlewareMixin
 
-logger = logging.getLogger(__name__)
-
-class ForwardedForMiddleware:
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
+class RealIPMiddleware(MiddlewareMixin):
+    def process_request(self, request):
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
-            # Nur die erste IP-Adresse extrahieren
-            ip = x_forwarded_for.split(',')[0].strip()
-            logger.info(f"Extracted IP: {ip}")  # Log-Level auf "info" setzen für Sichtbarkeit
-            request.META['REMOTE_ADDR'] = ip
+            # X-Forwarded-For enthält eine Liste von IP-Adressen, getrennt durch Komma
+            ip = x_forwarded_for.split(',')[0]  # Nimm die erste IP-Adresse
         else:
-            logger.debug("No X-Forwarded-For header found")
-        
-        # Weiterleiten der Anfrage
-        response = self.get_response(request)
-        return response
+            ip = request.META.get('REMOTE_ADDR')  # Wenn kein X-Forwarded-For-Header vorhanden ist
+        request.META['REMOTE_ADDR'] = ip  # Setze die IP-Adresse neu
