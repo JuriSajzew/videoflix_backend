@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirm your email</title>
+    <style>
+      .button {
+        width: 198px;
+        height: 48px;
+        padding: 12px 24px 12px 24px;
+        gap: 10px;
+        border-radius: 40px;
+        opacity: 0px;
+        background-color: #2e3edf;
+        color: #ffffff;
+        text-align: center;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dear User</h1>
+    <p>Thank you for registering with Videoflix. To complete your registration and verify your email address, please click the link below:</p>
+    <br>
+    <a href="{{ verification_link }}" class="button">Verify e-mail</a>
+    <br>
+    <br>
+    <p>
+      If you did not create an account with us, please disregard this email.
+      <br />
+      <br />
+      Best regards,
+      <br />
+      <br />
+      Your Videoflix Team
+    </p>
+  </body>
+</html>

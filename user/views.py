@@ -124,10 +124,7 @@ def verify_email(request):
         # Token ungültig machen
         verification.delete()
         
-        return Response({
-            'message': 'Email verified successfully.',
-            'redirect_url': 'https://videoflix.juridev.de/login'  # URL deiner Login-Seite
-        }, status=status.HTTP_200_OK)
+        return redirect('https://videoflix.juridev.de/login')
     except UserVerification.DoesNotExist:
         return Response({'message': 'Invalid token.'}, status=status.HTTP_400_BAD_REQUEST)
     
