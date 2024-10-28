@@ -108,7 +108,7 @@ This backend offers several endpoints to provide the functions of the video plat
 
 ### End points
 
-| Pfad                                   | Beschreibung                                                                                    |
+| Path                                   | Description                                                                                 |
 |----------------------------------------|-------------------------------------------------------------------------------------------------|
 | `admin/`                               | Access to the Django admin panel                                                             |
 | `check_email/`                         | Checks if an email address is already registered                                       |
