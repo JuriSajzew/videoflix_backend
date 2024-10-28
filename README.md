@@ -34,10 +34,11 @@ Videoflix is the backend of a video platform that was developed as a learning pr
 ## Installation
 ### Prerequisites
 Before you start, make sure that the following applications are installed:
-* **Python (version 3.x)** : [Download Python](https://www.python.org/downloads/)
-* **PostgreSQL** : [Download PostgreSQL](https://www.postgresql.org/download/)
+* **Python (version 3.x)** : <a href="https://www.python.org/downloads/" target="_blank">Download Python</a>.
+* **PostgreSQL** : <a href="https://www.postgresql.org/download/" target="_blank">Download PostgreSQL</a>.
 * **pip** : Normally pre-installed with Python, for installation of additional Python packages.
-* **Git** (optional, but recommended): [Download Git](https://git-scm.com/downloads)
+* **Git** (optional, but recommended): <a href="https://git-scm.com/downloads" target="_blank">Download Git</a>.
+
 
 ### Project setup
 1. `Clone repository`: Clone this repository to your local directory.
@@ -123,11 +124,11 @@ This backend offers several endpoints to provide the functions of the video plat
 
 
 ## Frontend
-The corresponding frontend project is separate and was developed with Angular. You can find it here on my [Videoflix_Frontend](github.comJuriSajzew/videoflix_frontend).
+The corresponding frontend project is separate and was developed with Angular. You can find it here on my <a href="https://github.com/JuriSajzew/videoflix_frontend" target="_blank">Videoflix_Frontend</a>.
 
 ## Author
 Juri Sajzew
-[GitHub-Profil](https://github.com/JuriSajzew)
+<a href="https://github.com/JuriSajzew" target="_blank">GitHub-Profile</a>
 
 ## Licence
 This project is licensed under the MIT licence see the [LICENSE](licence) file for more details.
