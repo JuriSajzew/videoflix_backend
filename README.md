@@ -34,10 +34,10 @@ Videoflix is the backend of a video platform that was developed as a learning pr
 ## Installation
 ### Prerequisites
 Before you start, make sure that the following applications are installed:
-* **Python (version 3.x)** : Download Python
-* **PostgreSQL** : Download PostgreSQL
+* **Python (version 3.x)** : [Download Python](https://www.python.org/downloads/)
+* **PostgreSQL** : [Download PostgreSQL](https://www.postgresql.org/download/)
 * **pip** : Normally pre-installed with Python, for installation of additional Python packages.
-* **Git** (optional, but recommended): Download Git
+* **Git** (optional, but recommended): [Download Git](https://git-scm.com/downloads)
 
 ### Project setup
 1. `Clone repository`: Clone this repository to your local directory.
