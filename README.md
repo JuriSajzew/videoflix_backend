@@ -106,7 +106,7 @@ The server is now running under `http://localhost:8000`.
 ## API documentation
 This backend offers several endpoints to provide the functions of the video platform. Here is an overview of the available API endpoints:
 
-### Endpunkte
+### End points
 
 | Pfad                                   | Beschreibung                                                                                    |
 |----------------------------------------|-------------------------------------------------------------------------------------------------|
